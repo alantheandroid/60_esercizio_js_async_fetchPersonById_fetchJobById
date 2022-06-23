@@ -35,11 +35,23 @@ const jobs = [
 ];
 
 const fetchPersonById = (id) =>
-  new Promise((resolve) => resolve(persons.find((person) => person.id === id)));
+  new Promise((resolve) => {
+    let person = persons.find((person) => person.id === id);
+    if (person) {
+      resolve(person);
+    }
+  });
 
 const fetchJobById = (person) =>
-  jobs.find((job) => job.id == person.id).jobTitle;
+  new Promise((resolve) => {
+    let job = jobs.find((job) => job.id == person.id).jobTitle;
+    if (job) {
+      resolve(`${person.firstName} ${person.lastName}, ${job}`);
+    }
+  });
 
-fetchPersonById(1).then((person) =>
-  console.log(`${person.firstName} ${person.lastName}, ${fetchJobById(person)}`)
-);
+fetchPersonById(1)
+  .then((person) => fetchJobById(person))
+  .then((result) => console.log(result));
+
+/* console.log(`${person.firstName} ${person.lastName}, ${fetchJobById(person)}`); */
