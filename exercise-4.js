@@ -53,5 +53,3 @@ const fetchJobById = (person) =>
 fetchPersonById(1)
   .then((person) => fetchJobById(person))
   .then((result) => console.log(result));
-
-/* console.log(`${person.firstName} ${person.lastName}, ${fetchJobById(person)}`); */
